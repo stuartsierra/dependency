@@ -81,15 +81,15 @@ for more examples.
 Please send bug reports or suggestions via email, which you can find
 on my [GitHub profile].
 
-Please feel free to fork and modify this library, but please do not
-send me pull requests without some prior correspondence.
+Feel free to fork and modify this library, but please do not send me
+pull requests without some prior correspondence.
 
 [GitHub profile]: https://github.com/stuartsierra
 
 
 ## Change Log
 
-* Release 0.1.0
+* Release 0.1.0 on 07-Apr-2013
 
 
 ## Copyright and License
