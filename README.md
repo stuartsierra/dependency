@@ -51,6 +51,14 @@ Create a new dependency graph:
 
 This creates a structure like the following:
 
+         :a
+        / |
+      :b  |
+        \ |
+         :c
+          |
+         :d
+
 Ask questions of the graph:
 
     (dep/transitive-dependencies g1 :d)
