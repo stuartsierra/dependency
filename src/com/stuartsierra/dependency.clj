@@ -73,7 +73,7 @@
   (depend [graph node dep]
     (when (= node dep)
       (let [^String msg (binding [*print-length* 10]
-                          (str "A node cannot depend on itself: " (pr-str node)))]
+                          (str "The node " (pr-str node) " cannot depend on itself"))]
         (throw (Exception. msg))))
     (when (depends? graph dep node)
       (let [^String msg (binding [*print-length* 10]
