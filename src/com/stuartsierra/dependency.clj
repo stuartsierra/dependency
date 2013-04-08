@@ -40,16 +40,16 @@
 
 (defn- remove-from-map [amap x]
   (reduce (fn [m [k vs]]
-	    (assoc m k (disj vs x)))
-	  {} (dissoc amap x)))
+            (assoc m k (disj vs x)))
+          {} (dissoc amap x)))
 
 (defn- transitive
   "Recursively expands the set of dependency relationships starting
   at (get m x)"
   [m x]
   (reduce (fn [s k]
-	    (set/union s (transitive m k)))
-	  (get m x) (get m x)))
+            (set/union s (transitive m k)))
+          (get m x) (get m x)))
 
 (declare depends?)
 
@@ -71,6 +71,10 @@
                (set (keys dependents))))
   DependencyGraphUpdate
   (depend [graph node dep]
+    (when (= node dep)
+      (let [^String msg (binding [*print-length* 10]
+                          (str "The node " (pr-str node) " cannot depend on itself"))]
+        (throw (Exception. msg))))
     (when (depends? graph dep node)
       (let [^String msg (binding [*print-length* 10]
                           (str "Circular dependency between "
