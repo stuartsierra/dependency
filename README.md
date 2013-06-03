@@ -89,7 +89,11 @@ pull requests without some prior correspondence.
 
 ## Change Log
 
+* Release 0.1.1 on 03-Jun-2013
+  * A node may not depend on itself; fixes [#1]
 * Release 0.1.0 on 07-Apr-2013
+
+[#1]: https://github.com/stuartsierra/dependency/pull/1
 
 
 ## Copyright and License
