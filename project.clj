@@ -1,4 +1,4 @@
-(defproject com.stuartsierra/dependency "0.1.1"
+(defproject com.stuartsierra/dependency "0.1.2-SNAPSHOT"
   :description "A data structure for representing dependency graphs"
   :url "https://github.com/stuartsierra/dependency"
   :license {:name "Eclipse Public License"
