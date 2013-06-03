@@ -78,13 +78,10 @@ for more examples.
 
 ## Development and Contributing
 
-Please send bug reports or suggestions via email, which you can find
-on my [GitHub profile].
-
-Feel free to fork and modify this library, but please do not send me
-pull requests without some prior correspondence.
-
-[GitHub profile]: https://github.com/stuartsierra
+Unfortunately, I do not have time to respond to every issue or pull
+request. Please feel free to fork and modify this library to suit your
+own needs. I will make updates and new releases as I have time
+available.
 
 
 ## Change Log
