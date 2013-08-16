@@ -56,7 +56,7 @@
 (def ^:private set-conj (fnil conj #{}))
 
 ;; Do not construct directly, use 'graph' function
-(deftype MapDependencyGraph [dependencies dependents]
+(defrecord MapDependencyGraph [dependencies dependents]
   DependencyGraph
   (immediate-dependencies [graph node]
     (get dependencies node #{}))
