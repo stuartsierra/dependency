@@ -21,11 +21,11 @@ use it without adding a dependency on all of tools.namespace.
 
 ## Releases and Dependency Information
 
-This library is released on [Clojars]. Latest release is 0.1.1.
+This library is released on [Clojars]. Latest release is 0.2.0
 
 [Leiningen] dependency information:
 
-    [com.stuartsierra/dependency "0.1.1"]
+    [com.stuartsierra/dependency "0.2.0"]
 
 [Clojars]: http://clojars.org/
 [Leiningen]: http://leiningen.org/
