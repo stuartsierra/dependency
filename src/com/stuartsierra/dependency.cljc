@@ -121,29 +121,33 @@
   (contains? (transitive-dependents graph x) y))
 
 (defn topo-sort
-  "Returns a topologically-sorted list of nodes in graph."
-  [graph]
-  (loop [sorted ()
-         g graph
-         todo (set (filter #(empty? (immediate-dependents graph %))
-                           (nodes graph)))]
-    (if (empty? todo)
-      sorted
-      (let [[node & more] (seq todo)
-            deps (immediate-dependencies g node)
-            [add g'] (loop [deps deps
-                            g g
-                            add #{}]
-                       (if (seq deps)
-                         (let [d (first deps)
-                               g' (remove-edge g node d)]
-                           (if (empty? (immediate-dependents g' d))
-                             (recur (rest deps) g' (conj add d))
-                             (recur (rest deps) g' add)))
-                         [add g]))]
-        (recur (cons node sorted)
-               (remove-node g' node)
-               (clojure.set/union (set more) (set add)))))))
+  "Returns a topologically-sorted list of nodes in graph. Takes an
+  optional comparator to provide secondary sorting when the order of
+  nodes is ambiguous."
+  ([graph]
+   (topo-sort (constantly 0) graph))
+  ([comp graph]
+   (loop [sorted ()
+          g graph
+          todo (set (filter #(empty? (immediate-dependents graph %))
+                            (nodes graph)))]
+     (if (empty? todo)
+       sorted
+       (let [[node & more] (sort #(comp %2 %1) todo)
+             deps (immediate-dependencies g node)
+             [add g'] (loop [deps deps
+                             g g
+                             add #{}]
+                        (if (seq deps)
+                          (let [d (first deps)
+                                g' (remove-edge g node d)]
+                            (if (empty? (immediate-dependents g' d))
+                              (recur (rest deps) g' (conj add d))
+                              (recur (rest deps) g' add)))
+                          [add g]))]
+         (recur (cons node sorted)
+                (remove-node g' node)
+                (clojure.set/union (set more) (set add))))))))
 
 (def ^:private max-number
   #?(:clj Long/MAX_VALUE
@@ -152,9 +156,16 @@
 (defn topo-comparator
   "Returns a comparator fn which produces a topological sort based on
   the dependencies in graph. Nodes not present in the graph will sort
-  after nodes in the graph."
-  [graph]
-  (let [pos (zipmap (topo-sort graph) (range))]
-    (fn [a b]
-      (compare (get pos a max-number)
-               (get pos b max-number)))))
+  after nodes in the graph. Takes an optional secondary comparator to
+  provide secondary sorting when the order of nodes is ambiguous."
+  ([graph]
+   (topo-comparator (constantly 0) graph))
+  ([comp graph]
+   (let [pos (zipmap (topo-sort comp graph) (range))]
+     (fn [a b]
+       (let [pos-a (get pos a)
+             pos-b (get pos b)]
+         (if (and (nil? pos-a) (nil? pos-b))
+           (comp a b)
+           (compare (or pos-a max-number)
+                    (or pos-b max-number))))))))

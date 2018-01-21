@@ -290,7 +290,11 @@
          'seven 'eight
          'seven 'nine)))
 
-(deftest t-topo-sort
+(deftest t-topo-comparator-3
+  (is (= (sort (topo-comparator compare g2) '[three seven nine eight five])
+         '[five three seven eight nine])))
+
+(deftest t-topo-sort-1
   (let [sorted (topo-sort g2)]
     (are [x y] (before? sorted x y)
          'one   'two
@@ -308,6 +312,38 @@
          'five  'four
          'five  'seven
          'six   'seven)))
+
+(deftest t-topo-sort-2
+  (is (= (topo-sort compare g1) '[:a :b :c :d]))
+  (is (= (topo-sort compare g2) '[five one two four three six seven]))
+  (is (= (topo-sort compare g3)
+         '[:level0
+           :level1a :level1b :level1c :level1d
+           :level2
+           :level3a :level3b :level3c :level3d
+           :level4
+           :level5a :level5b :level5c :level5d
+           :level6
+           :level7a :level7b :level7c :level7d
+           :level8
+           :level9a :level9b :level9c :level9d
+           :level10
+           :level11a :level11b :level11c :level11d
+           :level12
+           :level13a :level13b :level13c :level13d
+           :level14
+           :level15a :level15b :level15c :level15d
+           :level16
+           :level17a :level17b :level17c :level17d
+           :level18
+           :level19a :level19b :level19c :level19d
+           :level20
+           :level21a :level21b :level21c :level21d
+           :level22
+           :level23a :level23b :level23c :level23d
+           :level24
+           :level25a :level25b :level25c :level25d
+           :level26])))
 
 (deftest t-no-cycles
   (is (thrown? Exception
