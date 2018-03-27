@@ -42,7 +42,11 @@
   (remove-node [graph node]
     "Removes the node from the dependency graph without removing it as a
     dependency of other nodes. That is, removes all outgoing edges from
-    node."))
+    node.")
+  (transitive-reduction [graph]
+    "Returns a new graph that is a transitive reduction.
+    That is, the smallest set of edges for which the graph keeps the same
+    transitive properties."))
 
 (defn- remove-from-map [amap x]
   (reduce (fn [m [k vs]]
@@ -61,6 +65,15 @@
         (recur (concat more (neighbors node))
                (conj expanded node)))
       expanded)))
+
+(defn transitive-equality? [g1 g2]
+  "True if the transitive properties is the same for g1 and g2"
+  (let [nodes1 (nodes g1)
+        nodes2 (nodes g2)]
+    (and (= nodes1 nodes2)
+         (every? #(= (transitive-dependencies g1 %)
+                     (transitive-dependencies g2 %))
+                 nodes1))))
 
 (declare depends?)
 
@@ -105,7 +118,17 @@
   (remove-node [graph node]
     (MapDependencyGraph.
      (dissoc dependencies node)
-     dependents)))
+     dependents))
+  (transitive-reduction [graph]
+    (let [edges (for [n (nodes graph)
+                      p (immediate-dependencies graph n)]
+                  [n p])]
+      (reduce (fn [g edge]
+                (let [new-graph (apply remove-edge g edge)]
+                  (if (transitive-equality? g new-graph)
+                    new-graph
+                    g)))
+              graph edges))))
 
 (defn graph "Returns a new, empty, dependency graph." []
   (->MapDependencyGraph {} {}))
