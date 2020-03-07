@@ -21,26 +21,29 @@ use it without adding a dependency on all of tools.namespace.
 
 ## Releases and Dependency Information
 
-This library is released on [Clojars]. Latest release is 0.2.0
+This library is released on [Clojars].
+Latest stable release is [1.0.0].
 
 [Leiningen] dependency information:
 
-    [com.stuartsierra/dependency "0.2.0"]
+    [com.stuartsierra/dependency "1.0.0"]
+
+[deps.edn] dependency information:
+
+    com.stuartsierra/dependency {:mvn/version "1.0.0"}
 
 [Clojars]: http://clojars.org/
 [Leiningen]: http://leiningen.org/
+[deps.edn]: https://clojure.org/guides/deps_and_cli
 
 
 ## Version Compatibility
 
-Version 0.2.0 requires Clojure 1.7.0 or higher for
-Conditional Read (`.cljc`) support.
+Versions 0.2.0 and higher are `.cljc` supporting both Clojure
+(versions 1.7.0 and higher) and ClojureScript with Conditional Read.
 
-Version 0.2.0 also supports ClojureScript versions with
-Conditional Read.
-
-Version 0.1.1 of this library remains compatible with
-Clojure versions 1.3.0, 1.4.0, and 1.5.1.
+Version 0.1.1 remains compatible with versions of
+Clojure before 1.7.0.
 
 
 ## Usage
@@ -91,18 +94,23 @@ All changes must go through [tools.namespace] and the Clojure
 
 ## Change Log
 
-* Release 0.2.0 on 18-Sept-2015
+* Release [1.0.0] on 07-Mar-2020
+  * Set Clojure dependency scope to 'provided'
+* Release [0.2.0] on 18-Sept-2015
   * Convert to `.cljc` for ClojureScript support
   * Apply enhancements and fixes up to [tools.namespace]
     version 0.3.0-alpha1
-* Release 0.1.1 on 03-Jun-2013
+* Release [0.1.1] on 03-Jun-2013
   * A node may not depend on itself; fixes [#1]
-* Release 0.1.0 on 07-Apr-2013
+* Release [0.1.0] on 07-Apr-2013
 
 [#1]: https://github.com/stuartsierra/dependency/pull/1
 [tools.namespace]: https://github.com/clojure/tools.namespace
 [contributing]: http://dev.clojure.org/display/community/Contributing
-
+[1.0.0]: https://github.com/stuartsierra/dependency/tree/dependency-1.0.0
+[0.2.0]: https://github.com/stuartsierra/dependency/tree/dependency-0.2.0
+[0.1.1]: https://github.com/stuartsierra/dependency/tree/dependency-0.1.1
+[0.1.0]: https://github.com/stuartsierra/dependency/tree/dependency-0.1.0
 
 ## Copyright and License
 
