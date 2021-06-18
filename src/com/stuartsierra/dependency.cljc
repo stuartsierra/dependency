@@ -58,7 +58,7 @@
     (if-let [[node & more] (seq unexpanded)]
       (if (contains? expanded node)
         (recur more expanded)
-        (recur (concat more (neighbors node))
+        (recur (into more (neighbors node))
                (conj expanded node)))
       expanded)))
 
