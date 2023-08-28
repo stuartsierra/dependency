@@ -143,7 +143,11 @@
                          [add g]))]
         (recur (cons node sorted)
                (remove-node g' node)
-               (clojure.set/union (set more) (set add)))))))
+               ;; NOTE: dep/topo-sort:master creates set from more and add
+               ;; this seems to take much longer than a simple union
+               ;; on more and add.
+               ;; more and add are guaranteed to be sets by the above code.
+               (clojure.set/union more add))))))
 
 (def ^:private max-number
   #?(:clj Long/MAX_VALUE
